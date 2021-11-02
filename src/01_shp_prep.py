@@ -2,10 +2,8 @@
 # data from the block level using maup. 
 
 import geopandas
-import pandas as pd
 import maup
 import warnings
-import shutil
 
 # enable progress bar for all maup operations
 maup.progress.enabled = True
@@ -13,11 +11,15 @@ maup.progress.enabled = True
 warnings.filterwarnings('ignore', 'GeoSeries.isna', UserWarning)
 
 # read in files
-bg = geopandas.read_file("zip://shp/va_2018_blck_grp_shp_pop.zip")
-precincts = geopandas.read_file("zip://shp/va_2018_ushouse_precincts.zip")
-# reproject files to north va CRS
-precincts = precincts.to_crs(epsg=2283)
-bg = bg.to_crs(epsg=2283)
+bg = geopandas.read_file("zip://data/slo_2020_blck_grp_shp_pop.zip")
+precincts = geopandas.read_file("zip://data/ca_2020_president_precincts.zip")
+
+# keep only the SLO County precincts
+precincts = precincts[precincts["COUNTY"] == "San Luis Obispo"].copy()
+
+# reproject files to CA Albers via CRs
+precincts = precincts.to_crs(epsg=3310)
+bg = bg.to_crs(epsg=3310)
 # remove any bowties (little imperfections in the polygons)
 precincts.geometry = precincts.buffer(0)
 bg.geometry = bg.buffer(0)
@@ -43,6 +45,6 @@ precincts[columns] = maup.prorate(
     weights=weights
 )
 
-out_file = "shp/va_ushouse_2018_precincts_race.shp"
+out_file = "data/slo_2020_president_precincts_race.shp"
 precincts.to_file(out_file)
-#shutil.make_archive(out_file, 'zip', root_dir="src/va_ushouse_2018_precincts_data")
+# manually zip up the output file
