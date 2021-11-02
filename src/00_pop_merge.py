@@ -2,11 +2,11 @@ import geopandas
 import pandas as pd
 
 # read in block groups shapefile
-bg = geopandas.read_file("zip://data/ca_2020_blck_grp_shp.zip")
+bg = geopandas.read_file("zip://shp/ca_2020_blck_grp_shp.zip")
 # keep only the useful cols
 bg = bg[["GEOID", "GISJOIN", "geometry"]].copy()
 # read in population data csv
-data = pd.read_csv("data/ca_2020_blck_grp_pop.csv")
+data = pd.read_csv("shp/ca_2020_blck_grp_pop.csv")
 
 # # keep only the relevant columns for total population by race.
 # U7B001:      Total
@@ -30,6 +30,6 @@ bg = bg.merge(data, on='GISJOIN')
 bg = bg[bg["COUNTY"] == "San Luis Obispo County"].copy()
 
 # write bg to file
-out_file = "data/slo_2020_blck_grp_shp_pop.shp"
+out_file = "shp/slo_2020_blck_grp_shp_pop.shp"
 bg.to_file(out_file)
 # best to zip manually now (too lazy to use shutil)

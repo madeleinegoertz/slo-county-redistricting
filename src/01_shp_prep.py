@@ -11,8 +11,8 @@ maup.progress.enabled = True
 warnings.filterwarnings('ignore', 'GeoSeries.isna', UserWarning)
 
 # read in files
-bg = geopandas.read_file("zip://data/slo_2020_blck_grp_shp_pop.zip")
-precincts = geopandas.read_file("zip://data/ca_2020_president_precincts.zip")
+bg = geopandas.read_file("zip://shp/slo_2020_blck_grp_shp_pop.zip")
+precincts = geopandas.read_file("zip://shp/ca_2020_president_precincts.zip")
 
 # keep only the SLO County precincts
 precincts = precincts[precincts["COUNTY"] == "San Luis Obispo"].copy()
@@ -45,6 +45,6 @@ precincts[columns] = maup.prorate(
     weights=weights
 )
 
-out_file = "data/slo_2020_president_precincts_race.shp"
+out_file = "shp/slo_2020_president_precincts_race.shp"
 precincts.to_file(out_file)
 # manually zip up the output file
