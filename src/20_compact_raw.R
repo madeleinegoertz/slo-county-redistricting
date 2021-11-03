@@ -4,7 +4,7 @@
 library(redist)
 load("data/data.RData")
 load("data/smc.RData")
-load("data/crsg.RData")
+#load("data/crsg.RData")
 
 # SMC
 start.time <- Sys.time()
@@ -20,28 +20,28 @@ smc.compact <-
 end.time <- Sys.time()
 print(end.time - start.time)
 
-# CRSG
-start.time <- Sys.time()
-crsg.compact <-
-  redist.compactness(
-    shp = df,
-    district_membership = crsg.out$partitions,
-    measure = c("PolsbyPopper", "EdgesRemoved"),
-    population = df$pop,
-    adjacency = adjlist,
-    ncores = 4
-  )
-end.time <- Sys.time()
-print(end.time - start.time)
-
-df$CON_DIST <- as.numeric(df$CON_DIST)
+# # CRSG
+# start.time <- Sys.time()
+# crsg.compact <-
+#   redist.compactness(
+#     shp = df,
+#     district_membership = crsg.out$partitions,
+#     measure = c("PolsbyPopper", "EdgesRemoved"),
+#     population = df$pop,
+#     adjacency = adjlist,
+#     ncores = 4
+#   )
+# end.time <- Sys.time()
+# print(end.time - start.time)
+# 
+df$SUPDIST <- as.numeric(df$SUPDIST)
 
 # Control
 start.time <- Sys.time()
 control.compact <-
   redist.compactness(
     shp = df,
-    district_membership = df$CON_DIST,
+    district_membership = df$SUPDIST,
     measure = c("PolsbyPopper", "EdgesRemoved"),
     population = df$pop,
     adjacency = adjlist,
@@ -53,7 +53,7 @@ print(end.time - start.time)
 raw.compact <-
   list(
     smc = smc.compact,
-    crsg = crsg.compact,
+    # crsg = crsg.compact,
     control = control.compact
   )
 

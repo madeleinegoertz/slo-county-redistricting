@@ -8,13 +8,12 @@ library(patchwork)
 
 load("data/data.RData")
 load("data/smc.RData")
-load("data/crsg.RData")
-load("data/fair.calc.100.RData") # for picking a map
-load("data/raw.fair.100.RData") # for getting DVS
+#load("data/fair.calc.100.RData") # for picking a map
+#load("data/raw.fair.100.RData") # for getting DVS
 
-df$CON_DIST <- as.numeric(df$CON_DIST)
+df$SUPDIST <- as.numeric(df$SUPDIST)
 
-pop_vote <- sum(df$G18HORDEM) / (sum(df$G18HORDEM) + sum(df$G18HORREP))
+pop_vote <- sum(df$G20PREDBId) / (sum(df$G20PRERTRU) + sum(df$G20PREDBID))
 
 plot_election <- function(fair, raw, maps, alg, savename = NULL) {
   map <- which.min(abs(fair$bias))
@@ -115,6 +114,6 @@ control <- plot_election(
 p <-
   (smc) / 
   (crsg) / 
-  (control)
+  (control)cv                      
 
 ggsave("paper/img/election.map.png", p, units = "in", width = 6.5, height = 9.75)
