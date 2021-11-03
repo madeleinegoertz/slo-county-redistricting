@@ -9,7 +9,7 @@ start.time <- Sys.time()
 smc.out <- redist.smc(
   adjobj = adjlist,
   popvec = df$pop,
-  ndists = 11,
+  ndists = 5,
   nsims = 100,
   popcons = 0.01
 )
