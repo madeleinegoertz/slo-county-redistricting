@@ -15,7 +15,7 @@ for (i in 1:nsims) {
                 population = df$pop, 
                 x_center = centers[,1], 
                 y_center = centers[,2], 
-                ndists = 11, 
+                ndists = 5, 
                 thresh = .01)
 }
 
