@@ -87,33 +87,33 @@ plot_election <- function(fair, raw, maps, alg, savename = NULL) {
     )
 }
 
-smc <- plot_election(
-  fair = calc.fair$smc,
-  raw = raw.fair$smc,
-  maps = smc.out$cdvec,
-  alg = "SMC",
-  #savename = "elec.smc"
-)
-
-crsg <- plot_election(
-  fair = calc.fair$crsg,
-  raw = raw.fair$crsg,
-  maps = crsg.out$partitions,
-  alg = "CRSG",
-  #savename = "elec.mcmc"
-)
+# smc <- plot_election(
+#   fair = calc.fair$smc,
+#   raw = raw.fair$smc,
+#   maps = smc.out$cdvec,
+#   alg = "SMC",
+#   #savename = "elec.smc"
+# )
+# 
+# crsg <- plot_election(
+#   fair = calc.fair$crsg,
+#   raw = raw.fair$crsg,
+#   maps = crsg.out$partitions,
+#   alg = "CRSG",
+#   #savename = "elec.mcmc"
+# )
 
 control <- plot_election(
   fair = calc.fair$control,
   raw = raw.fair$control,
-  maps = as_tibble(df$CON_DIST),
+  maps = as_tibble(df$SUPDIST),
   alg = "Control",
   #savename = "elec.control"
 )
 
-p <-
-  (smc) / 
-  (crsg) / 
-  (control)cv                      
-
-ggsave("paper/img/election.map.png", p, units = "in", width = 6.5, height = 9.75)
+# p <-
+#   (smc) / 
+#   (crsg) / 
+#   (control)cv                      
+# 
+# ggsave("paper/img/election.map.png", p, units = "in", width = 6.5, height = 9.75)
