@@ -15,11 +15,11 @@ library(spData)
 library(spdep)
 
 # unzip zip file that has the shapefiles in into temp directory
-unzip("shp/slo_2020_president_precincts_race.zip", exdir="shp/slo_2020_president_precincts_race")
+unzip("shp/slo_2020_precincts_districts_votes.zip", exdir="shp/slo_2020_precincts_districts_votes")
 # read in the shapefile
-df <- st_read("shp/slo_2020_president_precincts_race/slo_2020_president_precincts_race.shp")
+df <- st_read("shp/slo_2020_precincts_districts_votes/slo_2020_precincts_districts_votes.shp")
 # delete the extracted files. 
-unlink("shp/slo_2020_president_precincts_race", recursive=TRUE)
+unlink("shp/slo_2020_precincts_districts_votes", recursive=TRUE)
 
 adjlist <- redist.adjacency(df)
 centroids <- sf::st_centroid(df)
